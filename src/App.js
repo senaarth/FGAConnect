@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import { TokenProvider } from "./hooks/useAuth";
+import { Nav_ as Nav } from "./components/Nav";
+import { Landing } from "./pages/Landing";
+import { Groups as GroupsPage } from "./pages/Groups";
+import { AuthPage } from "./pages/AuthPage";
+import { ProfilePage} from "./pages/Profile"
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <TokenProvider>
+      <Router>
+        <Nav />
+        <Switch>
+          <Route path="/" exact component={Landing} />
+          <Route path="/groups" exact component={GroupsPage} />
+          <Route path="/auth" exact component={AuthPage} />
+          <Route path="/profile" exact component={ProfilePage} />
+        </Switch>
+      </Router>
+    </TokenProvider>
   );
 }
 
