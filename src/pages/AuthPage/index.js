@@ -41,12 +41,18 @@ function AuthPage() {
       password: signupPass,
     };
 
-    api.post("user/register", signUp).then((res) => {
-      if (res.status === 200) {
-        alert("Cadastro realizado com sucesso!");
-      }
-      clearInputs();
-    });
+    api
+      .post("user/register", signUp)
+      .then((res) => {
+        if (res.status === 200) {
+          alert("Cadastro realizado com sucesso!");
+          clearInputs();
+        }
+      })
+      .catch((err) => {
+        clearInputs();
+        alert("Erro no cadastro: " + err);
+      });
   }
 
   function clearInputs() {
@@ -63,21 +69,25 @@ function AuthPage() {
       <SignupContainer>
         <h1>Não possui conta? Faça seu cadastro!</h1>
         <input
+          value={signupName}
           type="text"
           placeholder="Nome"
           onChange={(e) => setSignupName(e.target.value)}
         ></input>
         <input
+          value={signupEmail}
           type="text"
           placeholder="E-Mail"
           onChange={(e) => setSignupEmail(e.target.value)}
         ></input>
         <input
+          value={signupPass}
           type="password"
           placeholder="Senha"
           onChange={(e) => setSignupPass(e.target.value)}
         ></input>
         <input
+          value={signupPassConfirm}
           type="password"
           placeholder="Confirme sua senha"
           onChange={(e) => setSignupPassConfirm(e.target.value)}

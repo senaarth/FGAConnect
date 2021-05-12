@@ -4,9 +4,11 @@ import { api } from "../../services/api";
 
 import { Container } from "./styles";
 
-function GroupItem({ data }) {
+function GroupItem({ data, profilePage }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [message, setMessage] = useState("Enviar Solicitação");
+
+console.log(profilePage);
 
   function handleSendSolicitation() {
     const token = localStorage.getItem("token");
@@ -30,7 +32,13 @@ function GroupItem({ data }) {
       <h1>{data.name}</h1>
       <h2>Requisitos de Software</h2>
       <p>Turma: 02A</p>
-      <a onClick={() => setIsModalOpen(true)}>+ Detalhes</a>
+      {
+        profilePage ? (
+          <p style={{ marginLeft: 0 }} className="detailsBtn" onClick={() => console.log()}>Ver página do grupo</p>
+        ) : (
+          <p className="detailsBtn" onClick={() => setIsModalOpen(true)}>+ Detalhes</p>
+        )
+      }
       <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
         <Modal.Header closeButton>
           <strong className="modalTitle">{data.name}</strong>

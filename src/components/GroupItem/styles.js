@@ -27,13 +27,14 @@ export const Container = styled.div`
     font-size: 0.8rem;
   }
 
-  a {
+  .detailsBtn {
     text-decoration: none;
     font-size: 1rem;
     margin-top: 0.4rem;
     color: var(--green) !important;
     font-weight: 600;
     margin-left: auto;
-    cursor: pointer
+    cursor: pointer;
+    margin-bottom: 0;
   }
 `;

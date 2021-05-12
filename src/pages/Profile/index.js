@@ -1,20 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+
 import { api } from "../../services/api";
-import { Container } from "./styles";
+import { Container, GroupsContainer } from "./styles";
+import { GroupItem } from "../../components/GroupItem";
 
 function ProfilePage() {
   const token = localStorage.getItem("token");
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    groups: []
+  });
   const history = useHistory();
 
-  api.post(`user/me/`, {}, {
-    headers: {
-      authorization: token,
-    }
-  }).then((res) => {
-    setUser(res.data.user);
-  });
+  if (!token) {
+    history.push("/auth");
+  }
+
+  useEffect(() => {
+    api.post(`user/me/`, {}, {
+      headers: {
+        authorization: token,
+      }
+    }).then((res) => {
+      console.log(res.data.user);
+      setUser(res.data.user);
+    });
+  }, []);
 
   function handleLogout() {
     localStorage.setItem("token", "");
@@ -23,10 +34,22 @@ function ProfilePage() {
 
   return (
       <Container>
-        <h1>{user.name}</h1>
-        <h2>{user.description}</h2>
-        <a onClick={() => handleLogout()}>SAIR</a>
-      </Container>  
+        <h2>{user.name}</h2>
+        <h5 style={{ textAlign: "center" }}>{user.description}</h5>
+        <h2>Seus Grupos</h2>
+        <GroupsContainer>
+        {
+          user.groups.length > 0 ? (
+            user.groups.map((group, index) => {
+              return <GroupItem key={index} data={group} profilePage={true} />
+            })
+          ) : (
+            <p>Você ainda não participa de nenhum grupo.</p>
+          )
+        }
+        </GroupsContainer>
+        <a href="#" onClick={() => handleLogout()} style={{ marginTop: "2rem", textDecoration: "none", color: "black" }}>SAIR</a>
+      </Container>
     )
 }
 
