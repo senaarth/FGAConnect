@@ -59,14 +59,14 @@ function GroupItem({ data, profilePage }) {
     getClassData();
   }, []);
 
-  function handleSendSolicitation() {
+  async function handleSendSolicitation() {
     const token = localStorage.getItem("token");
     if (!token) {
       alert("É necessário efetuar login para solicitar entrada no grupo.");
       return;
     }
 
-    api
+    await api
       .post(
         `group/join/${data._id}`,
         {},

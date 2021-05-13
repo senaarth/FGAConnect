@@ -11,6 +11,7 @@ export function GroupPage() {
   const token = localStorage.getItem("token");
   const [userId, setUserId] = useState({});
   const [isParticipant, setIsParticipant] = useState(false);
+  const [isWaiting, setIsWaiting] = useState(false);
   const [group, setGroup] = useState({
     active: false,
     membersNumber: 0,
@@ -74,6 +75,12 @@ export function GroupPage() {
 
     if (isUserMember) {
       setIsParticipant(true);
+    }
+
+    const isUserWaiting = group.waitingList.some((user) => user._id === userId);
+
+    if (isUserWaiting) {
+      setIsWaiting(true);
     }
   }, [group, userId]);
 
@@ -161,6 +168,32 @@ export function GroupPage() {
       });
   }
 
+  async function handleSendSolicitation() {
+    if (!token) {
+      alert("É necessário efetuar login para solicitar entrada no grupo.");
+      return;
+    }
+
+    await api
+      .post(
+        `/group/join/${group._id}`,
+        {},
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      )
+      .then(() => {
+        alert("Solicitação Enviada!");
+        history.go(0);
+      })
+      .catch((err) => {
+        alert("Erro ao enviar solicitação.");
+        history.go(0);
+      });
+  }
+
   return (
     <Container>
       <InfoContainer>
@@ -168,7 +201,7 @@ export function GroupPage() {
         <h5>{subject.name}</h5>
         <h5>Turma {group.class.class}</h5>
         <p>{group.description}</p>
-        {isParticipant && (
+        {isParticipant ? (
           <a
             style={{
               textDecoration: "none",
@@ -180,6 +213,20 @@ export function GroupPage() {
             onClick={() => handleLeaveGroup()}
           >
             SAIR DO GRUPO
+          </a>
+        ) : (
+          <a
+            style={{
+              cursor: isWaiting || isParticipant ? "default" : "pointer",
+            }}
+            className="sendSolicitation"
+            onClick={() => {
+              if (!isWaiting && !isParticipant) {
+                handleSendSolicitation();
+              }
+            }}
+          >
+            {isWaiting ? "Você está na lista de espera." : "Enviar solicitação"}
           </a>
         )}
       </InfoContainer>
