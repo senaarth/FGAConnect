@@ -30,9 +30,18 @@ export function ForumPage() {
     setFilteredTopics(filteredTopics);
   }
 
+  useEffect(() => {
+    async function getTopics() {
+      // Pega lista de tópicos
+    }
+
+    getTopics();
+  }, []);
+
   return (
     <Container>
       <h1>Fórum</h1>
+      <a style={{ textDecoration: "none", color: "var(--green)"}} href="/create-topic">Criar Tópico</a>
       <div className="inputsContainer">
         <input
           placeholder="Filtrar Tópicos"
