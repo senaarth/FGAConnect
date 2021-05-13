@@ -2,37 +2,27 @@ import React, { useState, useEffect } from "react";
 import { TopicItem } from "../../components/TopicItem";
 
 import { Container } from "./styles";
+import { api } from "../../services/api";
 
 export function ForumPage() {
-  const [topics, setTopics] = useState([
-    {
-      _id: "1",
-      title: "Chave perdida na I4",
-      description:
-        "Encontrei uma chave na I4 ontem, horário das 16h, tem um chaveiro do homem aranha, dono me procurar meu email é admin@admin.com",
-      likes: [],
-      comments: [],
-    },
-    {
-      _id: "2",
-      title: "Vagas de Estágio",
-      description: "Fórum dedicado a publicação de vagas de estágio",
-      likes: [],
-      comments: [],
-    },
-  ]);
+  const [topics, setTopics] = useState([]);
   const [filteredTopics, setFilteredTopics] = useState(topics);
 
   const [filter, setFilter] = useState("");
 
   function handleFilterTopics() {
-    const filteredTopics = topics.filter((topic) => topic.title.toLowerCase().includes(filter));
+    const filteredTopics = topics.filter((topic) =>
+      topic.title.toLowerCase().includes(filter)
+    );
     setFilteredTopics(filteredTopics);
   }
 
   useEffect(() => {
     async function getTopics() {
-      // Pega lista de tópicos
+      await api.get("/topic/list").then(({ data }) => {
+        setTopics(data);
+        setFilteredTopics(data);
+      });
     }
 
     getTopics();
@@ -41,7 +31,12 @@ export function ForumPage() {
   return (
     <Container>
       <h1>Fórum</h1>
-      <a style={{ textDecoration: "none", color: "var(--green)"}} href="/create-topic">Criar Tópico</a>
+      <a
+        style={{ textDecoration: "none", color: "var(--green)" }}
+        href="/create-topic"
+      >
+        Criar Tópico
+      </a>
       <div className="inputsContainer">
         <input
           placeholder="Filtrar Tópicos"
@@ -58,11 +53,7 @@ export function ForumPage() {
       {filteredTopics.map((topic) => {
         return <TopicItem key={topic._id} data={topic} />;
       })}
-      {
-        filteredTopics.length === 0 && (
-          <p>Nenhum tópico encontrado.</p>
-        )
-      }
+      {filteredTopics.length === 0 && <p>Nenhum tópico encontrado.</p>}
     </Container>
   );
 }

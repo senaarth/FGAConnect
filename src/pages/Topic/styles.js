@@ -9,6 +9,26 @@ export const Container = styled.div`
   margin: 0 auto;
   padding: 4rem 0;
 
+  .inputContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 600px;
+
+    input{
+      width: 100%;
+    }
+
+    button {
+      margin: 0 auto;
+      margin-top: 1rem;
+      width: 40%;
+    }
+
+    margin-bottom: 1.5rem;
+  }
+
   .commentsContainer {
     display: flex;
     flex-direction: column;

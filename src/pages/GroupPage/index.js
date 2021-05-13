@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { FaCheck } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
+import { BiTrash } from "react-icons/bi";
 
 import { api } from "../../services/api";
 import { Container, InfoContainer, StudentsContainer } from "./styles";
@@ -13,6 +14,7 @@ export function GroupPage() {
   const [isParticipant, setIsParticipant] = useState(false);
   const [isWaiting, setIsWaiting] = useState(false);
   const [group, setGroup] = useState({
+    _id: 1,
     active: false,
     membersNumber: 0,
     waitingList: [],
@@ -200,12 +202,41 @@ export function GroupPage() {
       });
   }
 
+  async function handleDeleteGroup() {
+    await api
+      .post(
+        `/group/delete/${group._id}`,
+        {},
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      )
+      .then(() => {
+        console.log("apagou");
+      })
+      .catch(() => {
+        console.log("NAOOOOOO");
+      });
+  }
+
   return (
     <Container>
       <InfoContainer>
-        <h2>{group.name}</h2>
+        <h2>
+          {group.name}
+          {userId === group.groupLider && (
+            <BiTrash
+              onClick={() => handleDeleteGroup()}
+              style={{ marginLeft: "0.4rem", cursor: "pointer" }}
+              color="red"
+              size={20}
+            />
+          )}
+        </h2>
         <h5>{subject.name}</h5>
-        <h5>Turma { group.class && group.class.class }</h5>
+        <h5>Turma {group.class && group.class.class}</h5>
         <p>{group.description}</p>
         {isParticipant ? (
           <p

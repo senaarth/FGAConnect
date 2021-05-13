@@ -14,7 +14,7 @@ export function CreateGroup() {
 
   const token = localStorage.getItem("@FGAConnect:Token");
   const history = useHistory();
-  console.log(token);
+
   if (!token) {
     alert("Favor logar antes de criar grupo.");
     history.push("/auth");

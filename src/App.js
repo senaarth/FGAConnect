@@ -11,6 +11,7 @@ import { GroupPage } from "./pages/GroupPage";
 import { CreateGroup } from "./pages/CreateGroup";
 import { ForumPage } from "./pages/Forum";
 import { TopicPage } from "./pages/Topic";
+import { CreateTopic } from "./pages/CreateTopic";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/create-group/" exact component={CreateGroup} />
           <Route path="/forum/" exact component={ForumPage} />
           <Route path="/forum/:topicId" exact component={TopicPage} />
+          <Route path="/create-topic" exact component={CreateTopic} />
         </Switch>
       </Router>
     </TokenProvider>
