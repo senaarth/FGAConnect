@@ -25,9 +25,6 @@ function Nav_() {
               <Nav.Link href="/groups" className="mr-3">
                 Grupos
               </Nav.Link>
-              <Nav.Link href="/subjects" className="mr-3">
-                Matérias
-              </Nav.Link>
               {
                 token ? (
                   <Nav.Link href="/profile" >

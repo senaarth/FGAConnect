@@ -38,3 +38,20 @@ export const Container = styled.div`
     margin-bottom: 0;
   }
 `;
+
+export const ModalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .detailsBtn {
+    text-decoration: none;
+    font-size: 1rem;
+    margin-top: 0.4rem;
+    color: var(--green) !important;
+    font-weight: 600;
+    margin-left: auto;
+    cursor: pointer;
+    margin-bottom: 0;
+  }
+`;

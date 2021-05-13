@@ -6,7 +6,9 @@ import { Nav_ as Nav } from "./components/Nav";
 import { Landing } from "./pages/Landing";
 import { Groups as GroupsPage } from "./pages/Groups";
 import { AuthPage } from "./pages/AuthPage";
-import { ProfilePage} from "./pages/Profile"
+import { ProfilePage } from "./pages/Profile";
+
+import { GroupPage } from "./pages/GroupPage";
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
           <Route path="/groups" exact component={GroupsPage} />
           <Route path="/auth" exact component={AuthPage} />
           <Route path="/profile" exact component={ProfilePage} />
+          <Route path="/group/:id" exact component={GroupPage} />
         </Switch>
       </Router>
     </TokenProvider>

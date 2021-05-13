@@ -77,9 +77,8 @@ export const GlobalStyle = createGlobalStyle`
         text-decoration: none;
         font-size: 1rem;
         margin-top: 0.4rem;
-        color: var(--green) !important;
+        color: var(--blue) !important;
         font-weight: 600;
-        margin-left: auto;
         cursor: pointer;
         text-decoration: none !important;
     }

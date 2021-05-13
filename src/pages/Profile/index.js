@@ -22,7 +22,6 @@ function ProfilePage() {
         authorization: token,
       }
     }).then((res) => {
-      console.log(res.data.user);
       setUser(res.data.user);
     });
   }, []);
