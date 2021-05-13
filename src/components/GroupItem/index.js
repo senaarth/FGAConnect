@@ -15,42 +15,50 @@ function GroupItem({ data, profilePage }) {
 
   useEffect(() => {
     async function isUserWaitingOrParticipant() {
-      api
-        .post(
-          `user/me/`,
-          {},
-          {
-            headers: {
-              authorization: token,
-            },
-          }
-        )
-        .then((res) => {
-          const user = res.data.user;
+      if (token) {
+       await api
+          .post(
+            `user/me/`,
+            {},
+            {
+              headers: {
+                authorization: token,
+              },
+            }
+          )
+          .then((res) => {
+            const user = res.data.user;
 
-          const checkUser = data.waitingList.some(
-            (student) => student._id === user._id
-          );
+            const checkUser = data.waitingList.some(
+              (student) => student._id === user._id
+            );
 
-          if (checkUser) {
-            setMessage("Você já está na lista de espera.");
-            setIsWating(true);
-          }
+            if (checkUser) {
+              setMessage("Você já está na lista de espera.");
+              setIsWating(true);
+            }
 
-          const checkMember = data.members.some(
-            (student) => student._id === user._id
-          );
+            const checkMember = data.members.some(
+              (student) => student._id === user._id
+            );
 
-          if (checkMember) {
-            setMessage("Você é um participante");
-            setIsParticipant(true);
-          }
-        });
+            if (checkMember) {
+              setMessage("Você é um participante");
+              setIsParticipant(true);
+            }
+          });
+      }
     }
 
     isUserWaitingOrParticipant();
 
     async function getClassData() {
+      if (!group) {
+        return;
+      }
+      if (!group.class) {
+        return;
+      }
       if (group.class.class) {
         api.get(`class/find/${group.class._id}`).then((res) => {
           setGroup({ ...group, class: res.data });
@@ -96,6 +104,12 @@ function GroupItem({ data, profilePage }) {
 
   useEffect(() => {
     async function getSubjectData() {
+      if (!group) {
+        return;
+      }
+      if (!group.class) {
+        return;
+      }
       if (group.class.subject) {
         api.get(`subject/find/${group.class.subject}`).then((res) => {
           setSubject(res.data);
@@ -110,7 +124,7 @@ function GroupItem({ data, profilePage }) {
     <Container style={{ maxWidth: profilePage ? "300px" : "" }}>
       <h1>{group.name}</h1>
       <h2>{subject.name}</h2>
-      <p>Turma: {group.class.class}</p>
+      <p>Turma: { group.class && group.class.class }</p>
       {profilePage ? (
         <a
           href={`/group/${group._id}`}
@@ -153,7 +167,7 @@ function GroupItem({ data, profilePage }) {
             <p
               style={{
                 cursor: isWaiting || isParticipant ? "default" : "pointer",
-                marginBottom: 0
+                marginBottom: 0,
               }}
               className="sendSolicitation"
               onClick={() => {

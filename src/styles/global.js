@@ -63,6 +63,10 @@ export const GlobalStyle = createGlobalStyle`
         outline: none;
     }
 
+    select {
+        background-color: white;
+    }
+
     [disabled] {
         opacity: 0.6;
         cursor: not-allowed;

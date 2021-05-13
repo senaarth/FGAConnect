@@ -31,7 +31,7 @@ function ProfilePage() {
   }, []);
 
   function handleLogout() {
-    localStorage.setItem("token", "");
+    localStorage.setItem("@FGAConnect:Token", "");
     history.push("/");
   }
 

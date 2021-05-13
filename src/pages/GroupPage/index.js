@@ -63,6 +63,12 @@ export function GroupPage() {
 
   useEffect(() => {
     async function getSubjectData() {
+      if (!group) {
+        return;
+      }
+      if (!group.class) {
+        return;
+      }
       if (group.class.subject) {
         api.get(`subject/find/${group.class.subject}`).then((res) => {
           setSubject(res.data);
@@ -199,7 +205,7 @@ export function GroupPage() {
       <InfoContainer>
         <h2>{group.name}</h2>
         <h5>{subject.name}</h5>
-        <h5>Turma {group.class.class}</h5>
+        <h5>Turma { group.class && group.class.class }</h5>
         <p>{group.description}</p>
         {isParticipant ? (
           <p
