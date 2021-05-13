@@ -14,7 +14,7 @@ export function CreateGroup() {
 
   const token = localStorage.getItem("token");
   const history = useHistory();
-    console.log(token)
+  console.log(token);
   if (!token) {
     alert("Favor logar antes de criar grupo.");
     history.push("/auth");
@@ -57,17 +57,18 @@ export function CreateGroup() {
           description,
         },
         {
-            headers: {
-                authorization: token,
-              }
+          headers: {
+            authorization: token,
+          },
         }
       )
       .then(({ data }) => {
-        alert("deu certo hehe");
+        alert("Grupo criado com sucesso.");
         history.push(`/group/${data._id}`);
       })
       .catch((err) => {
-        alert(err);
+        alert("Erro ao criar grupo, favor tentar novamente.");
+        history.go(0);
       });
   }
 
@@ -75,11 +76,11 @@ export function CreateGroup() {
     <Container>
       <h1>Criar Grupo</h1>
       <input
-        onChange={({target}) => setName(target.value)}
+        onChange={({ target }) => setName(target.value)}
         placeholder="Nome do Grupo"
       />
       <input
-        onChange={({target}) => setDescription(target.value)}
+        onChange={({ target }) => setDescription(target.value)}
         placeholder="Descrição"
       />
       <select

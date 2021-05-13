@@ -7,7 +7,7 @@ export const Container = styled.div`
     padding: 2rem 0;
     text-align: center;
 
-    h2 {
+    & > h2 {
         margin-top: 2rem;
         color: var(--blue) !important;
     }

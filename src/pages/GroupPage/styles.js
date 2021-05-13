@@ -6,7 +6,7 @@ export const Container = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem 0;
+  padding: 4rem 0;
   width: 90%;
   max-width: 1120px;
   margin: 0 auto;
@@ -25,6 +25,7 @@ export const InfoContainer = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
+  margin: 0 auto;
 
   h2 {
     color: var(--blue);
@@ -42,6 +43,8 @@ export const InfoContainer = styled.div`
   @media (min-width: 768px) {
     align-items: flex-start;
     text-align: left;
+    margin: 0;
+    max-width: 50%;
   }
 `;
 
