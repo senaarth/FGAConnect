@@ -25,6 +25,9 @@ function Nav_() {
               <Nav.Link href="/groups" className="mr-3">
                 Grupos
               </Nav.Link>
+              <Nav.Link href="/forum" className="mr-3">
+                Fórum
+              </Nav.Link>
               {
                 token ? (
                   <Nav.Link href="/profile" >
