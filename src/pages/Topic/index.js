@@ -103,6 +103,11 @@ export function TopicPage() {
   }
 
   async function handleComment() {
+    if (comment === "") {
+      alert("Comentário não deve estar vazio.");
+      return;
+    }
+
     await api
       .post(
         `/comment/create/${topic._id}`,

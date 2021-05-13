@@ -67,7 +67,7 @@ export function CreateGroup() {
         history.push(`/group/${data._id}`);
       })
       .catch((err) => {
-        alert("Erro ao criar grupo, favor tentar novamente.");
+        alert("Título ou descrição inválida, favor tentar novamente.");
         history.go(0);
       });
   }

@@ -86,7 +86,7 @@ export function EditTopic() {
         history.push(`/forum/${topic._id}`);
       })
       .catch(() => {
-        alert("Erro ao editar tópico favor tentar novamente.");
+        alert("Título ou descrição inválida, favor tentar novamente.");
         history.go(0);
       });
   }

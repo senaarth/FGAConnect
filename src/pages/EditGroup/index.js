@@ -87,7 +87,7 @@ export function EditGroup() {
         history.push(`/group/${id}`);
       })
       .catch(() => {
-        alert("Erro ao editar grupo favor tentar novamente.");
+        alert("Título ou descrição inválida, favor tentar novamente.");
         history.go(0);
       });
   }

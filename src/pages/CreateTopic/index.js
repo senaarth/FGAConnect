@@ -34,7 +34,7 @@ export function CreateTopic() {
         history.push(`/forum/${data.topic._id}`);
       })
       .catch((err) => {
-        alert("Erro ao criar tópico favor tentar novamente.", err);
+        alert("Título ou descrição inválida, favor tentar novamente.");
         history.go(0);
       });
   }
@@ -58,7 +58,18 @@ export function CreateTopic() {
           setDescription(target.value);
         }}
       />
-      <button onClick={() => handleSubmitTopic()}>CRIAR</button>
+      <button
+        onClick={() => {
+          if (title === "") {
+            alert("Título ou descrição inválida, favor tentar novamente.");
+            return;
+          }
+
+          handleSubmitTopic();
+        }}
+      >
+        CRIAR
+      </button>
     </Container>
   );
 }

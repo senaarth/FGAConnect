@@ -11,6 +11,11 @@ export function ForumPage() {
   const [filter, setFilter] = useState("");
 
   function handleFilterTopics() {
+    if (filter === "") {
+      alert("Favor informar filtro.");
+      return;
+    }
+
     const filteredTopics = topics.filter((topic) =>
       topic.title.toLowerCase().includes(filter)
     );
