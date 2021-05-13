@@ -34,7 +34,7 @@ function AuthPage() {
     history.push("/");
   }
 
-  function handleSignup() {
+  async function handleSignup() {
     if (!(signupPass === signupPassConfirm)) {
       alert("Senha e confirmação de senha não batem.");
       return;
@@ -46,7 +46,7 @@ function AuthPage() {
       password: signupPass,
     };
 
-    api
+    await api
       .post("user/register", signUp)
       .then((res) => {
         if (res.status === 200) {

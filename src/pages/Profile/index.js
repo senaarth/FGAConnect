@@ -17,13 +17,17 @@ function ProfilePage() {
   }
 
   useEffect(() => {
-    api.post(`user/me/`, {}, {
-      headers: {
-        authorization: token,
-      }
-    }).then((res) => {
-      setUser(res.data.user);
-    });
+    async function getUser() {
+      await api.post(`user/me/`, {}, {
+        headers: {
+          authorization: token,
+        }
+      }).then((res) => {
+        setUser(res.data.user);
+      });
+    }
+
+    getUser();
   }, []);
 
   function handleLogout() {

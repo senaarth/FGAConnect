@@ -8,13 +8,17 @@ function GroupsTable({ filterOptions }) {
   const [groups, setGroups] = useState([]);
 
   useEffect(() => {
-    if (!filterOptions.type) {
-      api.get("/group/list").then((res) => setGroups(res.data));
-    } else {
-      api
-        .get(`group/findBy${filterOptions.type}/${filterOptions.value}`)
-        .then((res) => setGroups(res.data));
+    async function getGroups() {
+      if (!filterOptions.type) {
+        await api.get("/group/list").then((res) => setGroups(res.data));
+      } else {
+        await api
+          .get(`group/findBy${filterOptions.type}/${filterOptions.value}`)
+          .then((res) => setGroups(res.data));
+      }
     }
+
+    getGroups();
   }, [filterOptions]);
 
   return (
