@@ -123,7 +123,7 @@ export function TopicPage() {
 
   return (
     <Container>
-      <h3>{topic.title}</h3>
+      <h3 style={{ textAlign: "center" }}>{topic.title}</h3>
       <h5>{topic.description}</h5>
       {topic.user._id === userId ? (
         <div className="maintainTopic" style={{ marginBottom: "1.5rem" }}>
