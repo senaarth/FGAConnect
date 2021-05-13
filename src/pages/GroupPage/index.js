@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { FaCheck } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
-import { BiTrash } from "react-icons/bi";
+import { BiTrash, BiEditAlt } from "react-icons/bi";
 
 import { api } from "../../services/api";
 import { Container, InfoContainer, StudentsContainer } from "./styles";
@@ -227,12 +227,21 @@ export function GroupPage() {
         <h2>
           {group.name}
           {userId === group.groupLider && (
-            <BiTrash
-              onClick={() => handleDeleteGroup()}
-              style={{ marginLeft: "0.4rem", cursor: "pointer" }}
-              color="red"
-              size={20}
-            />
+            <span>
+              <BiTrash
+                onClick={() => handleDeleteGroup()}
+                style={{ marginLeft: "0.4rem", cursor: "pointer" }}
+                color="red"
+                size={20}
+              />
+              <a href={`/edit-group/${group._id}`}>
+                <BiEditAlt
+                  color="var(--green)"
+                  size={20}
+                  style={{ marginRight: "0.6rem" }}
+                />
+              </a>
+            </span>
           )}
         </h2>
         <h5>{subject.name}</h5>

@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useHistory } from "react-router";
+import { useHistory, useParams } from "react-router-dom";
 
 import { Container } from "./styles";
 import { api } from "../../services/api";
 
-export function EditTopic() {
+export function EditGroup() {
   const history = useHistory();
   const { id } = useParams();
   const token = localStorage.getItem("@FGAConnect:Token");
   const [userId, setUserId] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [topic, setTopic] = useState({
+  const [group, setGroup] = useState({
     user: {
       _id: "",
     },
@@ -20,10 +20,11 @@ export function EditTopic() {
   useEffect(() => {
     async function getTopic() {
       await api
-        .get(`/topic/findbyId/${id}`)
+        .get(`/group/find/${id}`)
         .then(({ data }) => {
-          setTopic(data);
-          setTitle(data.title);
+          setGroup(data);
+          setTitle(data.name);
+          setUserId(data.groupLider);
           setDescription(data.description);
         })
         .catch(() => {
@@ -55,22 +56,22 @@ export function EditTopic() {
     getUser();
   }, []);
 
-  useEffect(() => {
-    if (userId !== topic.user._id) {
-      alert("Você não tem permissão para editar este tópico.");
-      history.push("/");
-    }
-  }, [userId]);
+  //   useEffect(() => {
+  //     if (userId !== group.groupLider) {
+  //       alert("Você não tem permissão para editar este grupo.");
+  //       history.push("/");
+  //     }
+  //   }, [userId]);
 
   async function handleSubmit() {
     if (title === "") {
       alert("Título não pode estar vazio.");
       return;
     }
-    
+
     await api
       .put(
-        `/topic/update/${topic._id}`,
+        `/group/update/${id}`,
         {
           title,
           description,
@@ -82,11 +83,11 @@ export function EditTopic() {
         }
       )
       .then(() => {
-        alert("Tópico editado com sucesso");
-        history.push(`/forum/${topic._id}`);
+        alert("Grupo editado com sucesso");
+        history.push(`/group/${id}`);
       })
       .catch(() => {
-        alert("Erro ao editar tópico favor tentar novamente.");
+        alert("Erro ao editar grupo favor tentar novamente.");
         history.go(0);
       });
   }
