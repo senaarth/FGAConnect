@@ -7,8 +7,8 @@ import { Landing } from "./pages/Landing";
 import { Groups as GroupsPage } from "./pages/Groups";
 import { AuthPage } from "./pages/AuthPage";
 import { ProfilePage } from "./pages/Profile";
-
 import { GroupPage } from "./pages/GroupPage";
+import { CreateGroup } from "./pages/CreateGroup";
 
 function App() {
   return (
@@ -21,6 +21,7 @@ function App() {
           <Route path="/auth" exact component={AuthPage} />
           <Route path="/profile" exact component={ProfilePage} />
           <Route path="/group/:id" exact component={GroupPage} />
+          <Route path="/create-group/" exact component={CreateGroup} />
         </Switch>
       </Router>
     </TokenProvider>

@@ -101,7 +101,7 @@ function GroupItem({ data, profilePage }) {
   }, [group]);
 
   return (
-    <Container>
+    <Container style={{ maxWidth: profilePage ? "300px" : "" }}>
       <h1>{group.name}</h1>
       <h2>{subject.name}</h2>
       <p>Turma: {group.class.class}</p>

@@ -47,6 +47,7 @@ function ProfilePage() {
           )
         }
         </GroupsContainer>
+        <a href="/create-group" className="createGroup" style={{ marginTop: "2rem"}}>Criar um Grupo</a>
         <a href="#" onClick={() => handleLogout()} style={{ marginTop: "2rem", textDecoration: "none", color: "black" }}>SAIR</a>
       </Container>
     )

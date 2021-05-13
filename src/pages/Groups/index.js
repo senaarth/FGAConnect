@@ -29,7 +29,7 @@ function Groups() {
     <Container>
       <InputContainer>
         <div>
-          <select defaultValue={null} onChange={handleFilterTypeChange}>
+          <select defaultValue={null} onChange={() => handleFilterTypeChange}>
             <option value={null} disabled hidden>
               Selecione a Categoria de Filtro
             </option>

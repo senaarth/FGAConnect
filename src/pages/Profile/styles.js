@@ -11,6 +11,17 @@ export const Container = styled.div`
         margin-top: 2rem;
         color: var(--blue) !important;
     }
+
+    .createGroup {
+        color: var(--green);
+        text-decoration: none;
+
+        transition: filter 0.2s;
+
+        &.hover {
+            filter: brightness(0.8);
+        }
+    }
 `;
 
 export const GroupsContainer = styled.div`
@@ -20,7 +31,7 @@ export const GroupsContainer = styled.div`
     align-items: center;
     justify-content: space-around;
     width: 90%;
-    max-width: 500px;
+    max-width: 700px;
     margin-top: 0.6rem;
 
     div {

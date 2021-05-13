@@ -18,6 +18,11 @@ function AuthPage() {
 
   let history = useHistory();
 
+  const hasToken = localStorage.getItem("token");
+  if (hasToken) {
+    history.push("/profile");
+  }
+
   function handleLogin() {
     const login = {
       email: loginEmail,
