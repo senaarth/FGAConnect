@@ -20,7 +20,7 @@ export const Container = styled.div`
   }
 
   h2 {
-    font-size: 1rem;
+    font-size: 0.7rem;
   }
 
   p {

@@ -54,7 +54,7 @@ export const StudentsContainer = styled.div`
   margin: 0 auto;
   margin-top: 2rem;
 
-  div {
+  & > div {
     background-color: #fff;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
     border-radius: 10px;
@@ -82,5 +82,30 @@ export const StudentsContainer = styled.div`
   @media (min-width: 768px) {
     width: 40%;
     margin: 0;
+  }
+
+  .adminWaitingList {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 95%;
+    
+    div {
+      margin-top: 0!important;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      * + * {
+        margin-left: 5px;
+      }
+
+      a {
+        cursor: pointer;
+      }
+    }
   }
 `;

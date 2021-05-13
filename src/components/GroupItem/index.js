@@ -8,9 +8,13 @@ function GroupItem({ data, profilePage }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [message, setMessage] = useState("Enviar Solicitação");
   const token = localStorage.getItem("token");
+  const [isWaiting, setIsWating] = useState(false);
+  const [isParticipant, setIsParticipant] = useState(false);
+
+  const [group, setGroup] = useState(data);
 
   useEffect(() => {
-    async function isUserOnWaitingList() {
+    async function isUserWaitingOrParticipant() {
       api
         .post(
           `user/me/`,
@@ -27,13 +31,32 @@ function GroupItem({ data, profilePage }) {
           const checkUser = data.waitingList.some(
             (student) => student._id === user._id
           );
+
           if (checkUser) {
             setMessage("Você já está na lista de espera.");
+            setIsWating(true);
+          }
+
+          const checkMember = data.members.some(
+            (student) => student._id === user._id
+          );
+
+          if (checkMember) {
+            setMessage("Você é um participante");
+            setIsParticipant(true);
           }
         });
     }
 
-    isUserOnWaitingList();
+    isUserWaitingOrParticipant();
+
+    async function getClassData() {
+      api.get(`class/find/${group.class}`).then((res) => {
+        setGroup({ ...group, class: res.data });
+      });
+    }
+
+    getClassData();
   }, []);
 
   function handleSendSolicitation() {
@@ -61,17 +84,32 @@ function GroupItem({ data, profilePage }) {
       });
   }
 
+  const [subject, setSubject] = useState({
+    name: "",
+  });
+
+  useEffect(() => {
+    async function getSubjectData() {
+      if (group.class.subject) {
+        api.get(`subject/find/${group.class.subject}`).then((res) => {
+          setSubject(res.data);
+        });
+      }
+    }
+
+    getSubjectData();
+  }, [group]);
+
   return (
     <Container>
-      <h1>{data.name}</h1>
-      <h2>Requisitos de Software</h2>
-      <p>Turma: 02A</p>
+      <h1>{group.name}</h1>
+      <h2>{subject.name}</h2>
+      <p>Turma: {group.class.class}</p>
       {profilePage ? (
         <a
-          href={`/group/${data._id}`}
+          href={`/group/${group._id}`}
           style={{ marginLeft: 0 }}
           className="detailsBtn"
-          onClick={() => console.log()}
         >
           Ver página do grupo
         </a>
@@ -82,34 +120,40 @@ function GroupItem({ data, profilePage }) {
       )}
       <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
         <Modal.Header closeButton>
-          <strong className="modalTitle">{data.name}</strong>
+          <strong className="modalTitle">{group.name}</strong>
         </Modal.Header>
         <Modal.Body>
           <ModalContainer>
-            <p>{data.description}.</p>
+            <p>{group.description}.</p>
             <p>
               <strong>Nº Máximo de Integrantes: </strong>
-              {data.membersNumber}
+              {group.membersNumber}
             </p>
             <p>
               <strong>Nº de Vagas Disponíveis: </strong>
-              {data.membersNumber - data.members.length}
+              {group.membersNumber - group.members.length}
             </p>
             <strong>Integrantes:</strong>
-            {data.members.map((member) => {
+            {group.members.map((member) => {
               return <p key={member.email}>{member.email}</p>;
             })}
             <a
-              href={`/group/${data._id}`}
+              href={`/group/${group._id}`}
               style={{ marginLeft: 0 }}
               className="detailsBtn"
-              onClick={() => console.log()}
             >
               Ver página do grupo
             </a>
             <a
+              style={{
+                cursor: isWaiting || isParticipant ? "default" : "pointer"
+              }}
               className="sendSolicitation"
-              onClick={() => handleSendSolicitation()}
+              onClick={() => {
+                if (!isWaiting && !isParticipant) {
+                  handleSendSolicitation();
+                }
+              }}
             >
               {message}
             </a>
