@@ -6,7 +6,7 @@ import { api } from "../../services/api";
 import { Container, SignupContainer, LoginContainer } from "./styles";
 
 function AuthPage() {
-  const { token, getToken } = useAuth();
+  const { getToken } = useAuth();
 
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPass, setLoginPass] = useState("");
@@ -18,7 +18,7 @@ function AuthPage() {
 
   let history = useHistory();
 
-  const hasToken = localStorage.getItem("token");
+  const hasToken = localStorage.getItem("@FGAConnect:Token");
   if (hasToken) {
     history.push("/profile");
   }

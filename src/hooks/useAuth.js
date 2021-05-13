@@ -7,13 +7,14 @@ export function TokenProvider({ children }) {
   const [token, setToken] = useState("");
 
   async function getToken({ email, password }) {
-    const res = await api
+    await api
       .post("/user/login", {
         email,
-        password
+        password,
       })
       .then(({ headers }) => {
-        localStorage.setItem("token", headers.authtoken);
+        localStorage.setItem("@FGAConnect:Token", headers.authtoken);
+        setToken(headers.authtoken);
         window.location.reload();
       });
   }

@@ -7,7 +7,7 @@ import { Container, ModalContainer } from "./styles";
 function GroupItem({ data, profilePage }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [message, setMessage] = useState("Enviar Solicitação");
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("@FGAConnect:Token");
   const [isWaiting, setIsWating] = useState(false);
   const [isParticipant, setIsParticipant] = useState(false);
 
@@ -51,16 +51,22 @@ function GroupItem({ data, profilePage }) {
     isUserWaitingOrParticipant();
 
     async function getClassData() {
-      api.get(`class/find/${group.class}`).then((res) => {
-        setGroup({ ...group, class: res.data });
-      });
+      if (group.class.class) {
+        api.get(`class/find/${group.class._id}`).then((res) => {
+          setGroup({ ...group, class: res.data });
+        });
+      } else {
+        api.get(`class/find/${group.class}`).then((res) => {
+          setGroup({ ...group, class: res.data });
+        });
+      }
     }
 
     getClassData();
   }, []);
 
   async function handleSendSolicitation() {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("@FGAConnect:Token");
     if (!token) {
       alert("É necessário efetuar login para solicitar entrada no grupo.");
       return;
@@ -144,9 +150,10 @@ function GroupItem({ data, profilePage }) {
             >
               Ver página do grupo
             </a>
-            <a
+            <p
               style={{
-                cursor: isWaiting || isParticipant ? "default" : "pointer"
+                cursor: isWaiting || isParticipant ? "default" : "pointer",
+                marginBottom: 0
               }}
               className="sendSolicitation"
               onClick={() => {
@@ -156,7 +163,7 @@ function GroupItem({ data, profilePage }) {
               }}
             >
               {message}
-            </a>
+            </p>
           </ModalContainer>
         </Modal.Body>
       </Modal>

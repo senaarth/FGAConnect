@@ -13,7 +13,7 @@ function GroupsTable({ filterOptions }) {
         await api.get("/group/list").then((res) => setGroups(res.data));
       } else {
         await api
-          .get(`group/findBy${filterOptions.type}/${filterOptions.value}`)
+          .get(`group/findBy/${filterOptions.type}/${filterOptions.value}`)
           .then((res) => setGroups(res.data));
       }
     }

@@ -6,7 +6,7 @@ import { Container, GroupsContainer } from "./styles";
 import { GroupItem } from "../../components/GroupItem";
 
 function ProfilePage() {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("@FGAConnect:Token");
   const [user, setUser] = useState({
     groups: []
   });
@@ -52,7 +52,7 @@ function ProfilePage() {
         }
         </GroupsContainer>
         <a href="/create-group" className="createGroup" style={{ marginTop: "2rem"}}>Criar um Grupo</a>
-        <a href="#" onClick={() => handleLogout()} style={{ marginTop: "2rem", textDecoration: "none", color: "black" }}>SAIR</a>
+        <p onClick={() => handleLogout()} style={{ marginTop: "2rem", textDecoration: "none", color: "black", cursor: "pointer" }}>SAIR</p>
       </Container>
     )
 }

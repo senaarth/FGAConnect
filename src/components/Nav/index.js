@@ -5,12 +5,12 @@ import { Container, Content } from "./styles";
 
 function Nav_() {
   const [token, setToken] = useState("");
-  let localToken = localStorage.getItem("token");
+  let localToken = localStorage.getItem("@FGAConnect:Token");
 
   useEffect(() => {
-    localToken = localStorage.getItem("token");
+    localToken = localStorage.getItem("@FGAConnect:Token");
     setToken(localToken);
-  }, [localStorage.getItem("token")]);
+  }, [localStorage.getItem("@FGAConnect:Token")]);
 
   return (
     <Container>

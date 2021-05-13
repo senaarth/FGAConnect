@@ -8,7 +8,7 @@ import { Container, InfoContainer, StudentsContainer } from "./styles";
 
 export function GroupPage() {
   const { id } = useParams();
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("@FGAConnect:Token");
   const [userId, setUserId] = useState({});
   const [isParticipant, setIsParticipant] = useState(false);
   const [isWaiting, setIsWaiting] = useState(false);
@@ -202,20 +202,20 @@ export function GroupPage() {
         <h5>Turma {group.class.class}</h5>
         <p>{group.description}</p>
         {isParticipant ? (
-          <a
+          <p
             style={{
               textDecoration: "none",
               fontSize: "0.8rem",
               color: "red",
               marginTop: "0.5rem",
+              cursor: "pointer",
             }}
-            href="#"
             onClick={() => handleLeaveGroup()}
           >
             SAIR DO GRUPO
-          </a>
+          </p>
         ) : (
-          <a
+          <p
             style={{
               cursor: isWaiting || isParticipant ? "default" : "pointer",
             }}
@@ -227,7 +227,7 @@ export function GroupPage() {
             }}
           >
             {isWaiting ? "Você está na lista de espera." : "Enviar solicitação"}
-          </a>
+          </p>
         )}
       </InfoContainer>
       <StudentsContainer>
@@ -244,12 +244,12 @@ export function GroupPage() {
                   <p>{member.email}</p>
                   {userId !== member._id && (
                     <div>
-                      <a
-                        href="#"
+                      <span
+                        style={{ cursor: "pointer" }}
                         onClick={() => handleRemoveMember(member._id)}
                       >
                         <IoMdClose color="red" size={14} />
-                      </a>
+                      </span>
                     </div>
                   )}
                 </div>
@@ -271,12 +271,18 @@ export function GroupPage() {
                 >
                   <p>{member.email}</p>
                   <div>
-                    <a href="#" onClick={() => handleAcceptMember(member._id)}>
+                    <span
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleAcceptMember(member._id)}
+                    >
                       <FaCheck color="green" size={10} />
-                    </a>
-                    <a href="#" onClick={() => handleDeclineMember(member._id)}>
+                    </span>
+                    <span
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleDeclineMember(member._id)}
+                    >
                       <IoMdClose color="red" size={14} />
-                    </a>
+                    </span>
                   </div>
                 </div>
               ) : (

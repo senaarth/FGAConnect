@@ -12,7 +12,7 @@ export function CreateGroup() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("@FGAConnect:Token");
   const history = useHistory();
   console.log(token);
   if (!token) {
