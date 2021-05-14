@@ -11,6 +11,7 @@ export const Container = styled.div`
   color: var(--blue);
   font-weight: 500;
   height: 180px;
+  margin-top: 0.8rem;
 
   transition: filter 0.2s;
 

@@ -46,9 +46,7 @@ export function GroupPage() {
         });
     }
     getUser();
-  }, []);
 
-  useEffect(() => {
     async function getGroupData() {
       await api
         .get(`group/find/${id}`)
@@ -214,10 +212,12 @@ export function GroupPage() {
         }
       )
       .then(() => {
-        console.log("apagou");
+        alert("Grupo deletado com sucesso!");
+        history.push("/");
       })
       .catch(() => {
-        console.log("NAOOOOOO");
+        alert("Erro ao deletar grupo, favor tentar novamente.");
+        history.push("/"); 
       });
   }
 

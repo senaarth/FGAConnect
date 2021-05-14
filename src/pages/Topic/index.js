@@ -129,7 +129,7 @@ export function TopicPage() {
   return (
     <Container>
       <h3 style={{ textAlign: "center" }}>{topic.title}</h3>
-      <h5>{topic.description}</h5>
+      <h5 style={{ textAlign: "center" }}>{topic.description}</h5>
       {topic.user._id === userId ? (
         <div className="maintainTopic" style={{ marginBottom: "1.5rem" }}>
           <a href={`/edit-topic/${topic._id}`}>
@@ -147,17 +147,19 @@ export function TopicPage() {
           />
         </div>
       ) : (
-        <p>Criado por {topic.user.email}</p>
+        <p style={{ textAlign: "center" }}>Criado por {topic.user.email}</p>
       )}
-      <div className="inputContainer">
-        <input
-          placeholder="Comentar Tópico"
-          onChange={({ target }) => {
-            setComment(target.value);
-          }}
-        />
-        <button onClick={() => handleComment()}>COMENTAR</button>
-      </div>
+      {userId && (
+        <div className="inputContainer">
+          <input
+            placeholder="Comentar Tópico"
+            onChange={({ target }) => {
+              setComment(target.value);
+            }}
+          />
+          <button onClick={() => handleComment()}>COMENTAR</button>
+        </div>
+      )}
       <div className="commentsContainer">
         {topic.comments.map((comment) => {
           return (
