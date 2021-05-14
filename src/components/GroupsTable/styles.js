@@ -8,10 +8,10 @@ export const Container = styled.div`
   padding: 2rem 0;
 
   @media screen and (min-width: 375px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media screen and (min-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr);
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
   }
 `;

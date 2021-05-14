@@ -10,12 +10,18 @@ export const Container = styled.div`
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
   color: var(--blue);
   font-weight: 500;
+  height: 180px;
 
   transition: filter 0.2s;
 
   &:hover {
     filter: brightness(0.95);
   }
+
+  * {
+    word-wrap: break-word;
+  }
+
   h1 {
     font-size: 1.2rem;
   }
@@ -37,6 +43,14 @@ export const Container = styled.div`
     margin-left: auto;
     cursor: pointer;
     margin-bottom: 0;
+  }
+
+  @media (min-width: 375px) {
+    width: 48%;
+  }
+
+  @media (min-width: 768px) {
+    width: 32%;
   }
 `;
 
