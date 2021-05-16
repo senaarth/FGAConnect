@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+
 import { Modal } from "react-bootstrap";
 import { api } from "../../services/api";
 
@@ -10,6 +12,7 @@ function GroupItem({ data, profilePage }) {
   const token = localStorage.getItem("@FGAConnect:Token");
   const [isWaiting, setIsWating] = useState(false);
   const [isParticipant, setIsParticipant] = useState(false);
+  const history = useHistory();
 
   const [group, setGroup] = useState(data);
 
@@ -46,7 +49,10 @@ function GroupItem({ data, profilePage }) {
               setMessage("Você é um participante");
               setIsParticipant(true);
             }
-          });
+          }).catch(() => {
+            localStorage.setItem("@FGAConnect:Token", "");
+            history.go(0);
+          })
       }
     }
 

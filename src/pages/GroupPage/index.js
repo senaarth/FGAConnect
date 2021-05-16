@@ -43,6 +43,10 @@ export function GroupPage() {
         )
         .then((res) => {
           setUserId(res.data.user._id);
+        })
+        .catch(() => {
+          localStorage.setItem("@FGAConnect:Token", "");
+          history.go(0);
         });
     }
     getUser();
@@ -217,7 +221,7 @@ export function GroupPage() {
       })
       .catch(() => {
         alert("Erro ao deletar grupo, favor tentar novamente.");
-        history.push("/"); 
+        history.push("/");
       });
   }
 
